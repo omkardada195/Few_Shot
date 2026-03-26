@@ -38,9 +38,14 @@ def train_baseline_on_support(
 
 
 def evaluate_model(model, X_query, Y_query, batch_size=4):
-    results = model.evaluate(X_query, Y_query, batch_size=batch_size, verbose=0)
-    names = model.metrics_names
-    return {name: float(val) for name, val in zip(names, results)}
+    results = model.evaluate(
+        X_query,
+        Y_query,
+        batch_size=batch_size,
+        verbose=0,
+        return_dict=True
+    )
+    return {k: float(v) for k, v in results.items()}
 
 
 def predict_binary_masks(model, X, threshold=0.5):
